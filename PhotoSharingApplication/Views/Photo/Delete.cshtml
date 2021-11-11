@@ -1,64 +1,45 @@
 ﻿@model PhotoSharingApplication.Models.Photo
 
 @{
-    Layout = null;
+    ViewBag.Title = "Delete Photo: " + Model.Title;
 }
 
-<!DOCTYPE html>
+<h2>Delete Photo: "@Model.Title"</h2>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Delete</title>
-</head>
-<body>
-    <h3>Are you sure you want to delete this?</h3>
-    <fieldset>
-        <legend>Photo</legend>
+<p>Are you sure you want to delete this photo?</p>
 
-        <div class="display-label">
-            @Html.DisplayNameFor(model => model.Title)
-        </div>
-        <div class="display-field">
-            @Html.DisplayFor(model => model.Title)
-        </div>
+@using (Html.BeginForm("Delete", "Photo", FormMethod.Post))
+{
+    <div class="photo-display">
+        <img width="200" src="@Url.Action("GetImage", "Photo", new { id = Model.PhotoID })" />
+    </div>
 
-        <div class="display-label">
-            @Html.DisplayNameFor(model => model.ImageMimeType)
-        </div>
-        <div class="display-field">
-            @Html.DisplayFor(model => model.ImageMimeType)
+    <div class="photo-description">
+        @Html.DisplayFor(model => model.Description)
+    </div>
+
+    <div class="photo-metadata">
+        <div>
+            <span class="display-label">
+                @Html.DisplayNameFor(model => model.UserName):
+            </span>
+            <span class="display-field">
+                @Html.DisplayFor(model => model.UserName)
+            </span>
         </div>
 
-        <div class="display-label">
-            @Html.DisplayNameFor(model => model.Description)
+        <div>
+            <span class="display-label">
+                @Html.DisplayNameFor(model => model.CreatedDate):
+            </span>
+            <span class="display-field">
+                @Html.DisplayFor(model => model.CreatedDate)
+            </span>
         </div>
-        <div class="display-field">
-            @Html.DisplayFor(model => model.Description)
-        </div>
+    </div>
 
-        <div class="display-label">
-            @Html.DisplayNameFor(model => model.CreatedDate)
-        </div>
-        <div class="display-field">
-            @Html.DisplayFor(model => model.CreatedDate)
-        </div>
-
-        <div class="display-label">
-            @Html.DisplayNameFor(model => model.UserName)
-        </div>
-        <div class="display-field">
-            @Html.DisplayFor(model => model.UserName)
-        </div>
-    </fieldset>
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-        <p>
-            <input type="submit" value="Delete" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </p>
-    }
-
-</body>
-</html>
+    <p>
+        <input type="submit" value="Delete" />
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

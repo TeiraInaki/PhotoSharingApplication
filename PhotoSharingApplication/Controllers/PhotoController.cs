@@ -16,6 +16,7 @@ namespace PhotoSharingApplication.Controllers
         // GET: Photo
         public ActionResult Index()
         {
+            ViewBag.Title = "Welcome to Adventure Works Photo Sharing";
             return View("Index");
         }
 
